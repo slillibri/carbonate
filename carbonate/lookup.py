@@ -1,6 +1,4 @@
 def lookup(metric, cluster):
-    hosts = []
-    metric_destinations = cluster.getDestinations(metric)
-    for d in metric_destinations:
-        hosts.append(':'.join(map(str, d)))
-    return hosts
+    metric_destinations = map(lambda m: "%s:%s" % (m[0], m[2]),
+                              cluster.getDestinations(metric))
+    return metric_destinations

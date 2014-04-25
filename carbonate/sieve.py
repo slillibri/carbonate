@@ -5,7 +5,8 @@ def filterMetrics(inputs, node, cluster, invert=False):
         match = node
 
     for metric_name in inputs:
-        dests = map(lambda m: m[0], cluster.getDestinations(metric_name))
+        dests = map(lambda m: "%s:%s" % (m[0], m[2]),
+                    cluster.getDestinations(metric_name))
         if set(dests) & set(match):
             if not invert:
                 yield metric_name
